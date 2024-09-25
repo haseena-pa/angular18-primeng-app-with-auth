@@ -1,1 +1,67 @@
-<p>register works!</p>
+<div class="flex justify-content-center align-items-center min-h-screen">
+  <p-card header="Register" [style]="{ width: '400px' }">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="field">
+        <label for="fullName">Full Name</label>
+        <input
+          pInputText
+          class="w-full"
+          id="fullName"
+          formControlName="fullName"
+        />
+        @if(fullName.invalid && (fullName.dirty || fullName.touched)){
+        <small class="block p-error">Full name is required</small>
+        }
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input pInputText class="w-full" id="email" formControlName="email" />
+        @if(email.invalid && (email.dirty || email.touched)){
+        <small class="block p-error">
+          @if(email.hasError('required')) {
+          <span>Email is required</span>
+          } @else if(email.hasError('pattern')) {
+          <span>Email is invalid</span>
+          }
+        </small>
+        }
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <p-password
+          formControlName="password"
+          [feedback]="false"
+          [toggleMask]="true"
+          inputId="password"
+          inputStyleClass="w-full"
+          styleClass="w-full"
+        />
+        @if(password.invalid && (password.dirty || password.touched)) {
+        <small class="block p-error"> Password is required </small>
+        }
+      </div>
+      <div class="field">
+        <label for="confirmPassword">Confirm Password</label>
+        <p-password
+          formControlName="confirmPassword"
+          [feedback]="false"
+          [toggleMask]="true"
+          inputId="confirmPassword"
+          inputStyleClass="w-full"
+          styleClass="w-full"
+        />
+        @if(confirmPassword.invalid && (confirmPassword.dirty ||
+        confirmPassword.touched)) {
+        <small class="block p-error"> Confirm Password is required </small>
+        }
+      </div>
+      <p-button
+        type="submit"
+        label="Register"
+        styleClass="w-full"
+        [disabled]="registerForm.invalid"
+      ></p-button>
+      <div class="mt-2">Already a member? <a routerLink="/login">Login</a></div>
+    </form>
+  </p-card>
+</div>
