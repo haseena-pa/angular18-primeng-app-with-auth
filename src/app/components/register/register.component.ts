@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { passwordMismatchValidator } from '../../shared/password-mismatch.directive';
 
 @Component({
   selector: 'app-register',
@@ -26,15 +27,20 @@ import { PasswordModule } from 'primeng/password';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  registerForm = new FormGroup({
-    fullName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/[a-z0-9\._%\+\-]+@[a-z0-9\.\-]+\.[a-z]{2,}$/),
-    ]),
-    password: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required]),
-  });
+  registerForm = new FormGroup(
+    {
+      fullName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/[a-z0-9\._%\+\-]+@[a-z0-9\.\-]+\.[a-z]{2,}$/),
+      ]),
+      password: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required]),
+    },
+    {
+      validators: passwordMismatchValidator,
+    }
+  );
 
   onRegister() {
     console.log(this.registerForm.value);

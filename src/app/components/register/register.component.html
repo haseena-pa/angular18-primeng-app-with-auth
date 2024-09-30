@@ -53,6 +53,9 @@
         @if(confirmPassword.invalid && (confirmPassword.dirty ||
         confirmPassword.touched)) {
         <small class="block p-error"> Confirm Password is required </small>
+        } @if(registerForm.hasError('passwordMismatch') && password.valid &&
+        confirmPassword.valid) {
+        <small class="block p-error"> Password mismatch </small>
         }
       </div>
       <p-button
